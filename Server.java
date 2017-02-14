@@ -9,7 +9,7 @@ public class Server implements ServerInterface {
 
     public Server() {}
 
-    public Boolean register(String name) {
+    public Boolean register(String name, String ip) {
         return true;
     }
 
@@ -18,7 +18,7 @@ public class Server implements ServerInterface {
     }
 
     public String[] getDirectory() {
-        return {};
+        return new String[0];
     }
 
     public static void main(String args[]) {
