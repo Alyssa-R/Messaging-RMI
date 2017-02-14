@@ -48,7 +48,7 @@ public class Client implements ClientInterface {
         } else {
           Matcher m = validMsg.matcher(cmd);
           if (m.find()) {
-            boolean success = serverStub.send(m.group(0), m.group(1));
+            boolean success = serverStub.send(username, m.group(0), m.group(1));
             if (success) {
               System.out.println("Message sent to " + m.group(0));
             } else {
