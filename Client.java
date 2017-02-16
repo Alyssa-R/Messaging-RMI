@@ -52,7 +52,7 @@ public class Client implements ClientInterface {
             if (success) {
               System.out.println("Message sent to " + m.group(0));
             } else {
-              System.out.print("Invalid message.\nUse [recipient username]: [message] to send a message.\n");
+              System.out.print("No such user is in the directory.\n");
             }
           } else {
             System.out.print("Invalid message.\nUse [recipient username]: [message] to send a message.\n");
