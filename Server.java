@@ -11,15 +11,17 @@ import java.util.Set;
 
 public class Server implements ServerInterface {
   private Hashtable<String, ClientInterface> directory;
-
-
+ 
   public Server() {
+    //Directory keeps track of all users on server
+    //key: username value: ClientInterface object
     directory = new Hashtable<String, ClientInterface>();
   }
 
-  /*Returns true and adds username to directory if not already in use
-   * If username in use, returns false (fails)
+  /*Returns 0 and adds username to directory if not already in use,
    * establishes each client's connection to server
+   * If username in use, returns 1
+   * If username contains a colon (invalid), returns 2
    */
   public int register(String name, String ip) {
     if(directory.containsKey(name)){
@@ -32,12 +34,10 @@ public class Server implements ServerInterface {
     }
     else{
       try{
-        //get registry -- how do we get host? send it in as arg from client? is it an ip addr?
         Registry registry = LocateRegistry.getRegistry(ip);
-        //get stub
+        //get client's stub and add it to directory
           ClientInterface ClientStub = (ClientInterface) registry.lookup("ClientInterface");
           directory.put(name, ClientStub);
-          //confirmation message?
           return 0;
       }
         catch(RemoteException e){
@@ -75,7 +75,6 @@ public class Server implements ServerInterface {
     }
 
     /*Returns String array of usernames in use in this chat room
-     *
      */
     public String[] getDirectory() {
       Set<String> users = directory.keySet();
@@ -95,12 +94,6 @@ public class Server implements ServerInterface {
 
         System.err.println("Server ready");
 
-        //get the client interface -- remove these altogether? establishing connection in register username, seems risky
-        //get registry
-        /*
-        Registry registry = LocateRegistry.getRegistry(host);
-        //get stub
-        Hello stub = (Hello) registry.lookup("Hello"); */
       } catch (Exception e) {
         System.err.println("Server exception: " + e.toString());
         e.printStackTrace();
