@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,8 +20,7 @@ public class Client implements ClientInterface {
   }
 
   public static void main(String[] args) throws IOException {
-    Pattern validMsg = Pattern.compile("([a-zA-Z0-9]++): ([a-zA-Z0-9]++)");
-    InputStreamReader fileInputStream = new InputStreamReader(System.in);
+    Pattern validMsg = Pattern.compile("([a-zA-Z0-9]++): (.++)");
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     String host = (args.length < 1) ? null : args[0];
     try {
